@@ -6,5 +6,5 @@ dotenv.config();
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
-  console.log(`StudBud api is running on ${PORT} http/localhost:${PORT} 🔥🔥`);
+  console.log(`StudBud api is running on ${PORT} http://localhost:${PORT} 🔥🔥`);
 });

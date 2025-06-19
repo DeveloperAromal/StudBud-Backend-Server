@@ -1,6 +1,6 @@
 import { supabase } from "../config/SupabaseConfig.js";
 
-export async function getUsersById(s_id) {
+export async function getUserById(s_id) {
   const { data, error } = await supabase
     .from("s_auth")
     .select("*")

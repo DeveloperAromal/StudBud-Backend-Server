@@ -1,7 +1,8 @@
-import { fetchUsers } from "../controllers/users.controller.js";
+import { fetchUser } from "../controllers/users.controller.js";
 import express from "express";
+
 const router = express.Router();
 
-router.get("/usersById/:s_id", fetchUsers);
+router.get("/userById/:s_id", fetchUser);
 
 export default router;

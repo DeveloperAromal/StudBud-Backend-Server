@@ -1,7 +1,11 @@
 import express from "express";
 import cors from "cors";
-import userRoute from "./routes/users.route.js";
 import dotenv from "dotenv";
+
+import authRoute from "./routes/auth.route.js";
+import userRoute from "./routes/users.route.js";
+import fourmRoute from "./routes/fourm.route.js";
+import homeworkRoute from "./routes/homework.route.js";
 
 dotenv.config();
 
@@ -11,9 +15,12 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("StudBud private api");
+  res.json({ Status: 200, Active: "True" });
 });
 
 app.use("/api/v1", userRoute);
+app.use("/api/v1", authRoute);
+app.use("/api/v1", fourmRoute);
+app.use("/api/v1", homeworkRoute);
 
 export default app;
