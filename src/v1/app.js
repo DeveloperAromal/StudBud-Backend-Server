@@ -7,6 +7,7 @@ import userRoute from "./routes/users.route.js";
 import fourmRoute from "./routes/fourm.route.js";
 import homeworkRoute from "./routes/homework.route.js";
 import subdomainRoute from "./routes/subdomain.route.js";
+import flashcardRoute from "./routes/flashcard.route.js";
 
 dotenv.config();
 
@@ -24,5 +25,6 @@ app.use("/api/v1", authRoute);
 app.use("/api/v1", fourmRoute);
 app.use("/api/v1", homeworkRoute);
 app.use("/api/v1", subdomainRoute);
+app.use("/api/v1", flashcardRoute);
 
 export default app;
