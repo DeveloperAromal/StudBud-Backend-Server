@@ -6,6 +6,7 @@ import authRoute from "./routes/auth.route.js";
 import userRoute from "./routes/users.route.js";
 import fourmRoute from "./routes/fourm.route.js";
 import homeworkRoute from "./routes/homework.route.js";
+import subdomainRoute from "./routes/subdomain.route.js";
 
 dotenv.config();
 
@@ -22,5 +23,6 @@ app.use("/api/v1", userRoute);
 app.use("/api/v1", authRoute);
 app.use("/api/v1", fourmRoute);
 app.use("/api/v1", homeworkRoute);
+app.use("/api/v1", subdomainRoute);
 
 export default app;
