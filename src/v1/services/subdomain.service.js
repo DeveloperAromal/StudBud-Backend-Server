@@ -19,7 +19,7 @@ export async function createSubdomain(
   subdomain,
   email,
   phonenumber,
-  owner,
+  name,
   designation,
   capacity
 ) {
@@ -28,7 +28,7 @@ export async function createSubdomain(
     .insert([
       {
         subdomain,
-        owner,
+        name,
         email,
         phonenumber,
         designation,
