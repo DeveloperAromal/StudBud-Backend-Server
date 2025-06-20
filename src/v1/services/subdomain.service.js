@@ -17,9 +17,9 @@ export async function getSubdomainData(subdomain) {
 
 export async function createSubdomain(
   subdomain,
+  name,
   email,
   phonenumber,
-  name,
   designation,
   capacity
 ) {

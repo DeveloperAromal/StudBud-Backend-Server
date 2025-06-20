@@ -25,7 +25,8 @@ export const getDomainById = async (req, res) => {
 
 export const createNewSubdoamin = async (req, res) => {
   try {
-    const { subdomain, email, phonenumber,  name, designation, capacity } = req.body;
+    const { subdomain, name, email, phonenumber, designation, capacity } =
+      req.body;
     const createDomain = await createSubdomain(
       subdomain,
       name,
