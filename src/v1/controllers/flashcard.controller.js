@@ -1,7 +1,25 @@
 import {
   createFlashCard,
   getFlashCard,
+  generateFlashcardsFromYoutube,
 } from "../services/flashcard.service.js";
+
+export const generateFlashCardFromYoutubePost = async (req, res) => {
+  try {
+    const { videoUrl, title, subject, time, progress } = req.body;
+    const generated = await generateFlashcardsFromYoutube(
+      videoUrl,
+      title,
+      subject,
+      time,
+      progress
+    );
+    res.json(generated);
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: "Failed to generate flashcards" });
+  }
+};
 
 export const createFlashCardPost = async (req, res) => {
   try {
