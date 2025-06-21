@@ -9,3 +9,4 @@ export async function createFlashCard(title, quesans, time, progress) {
   if (error) throw error;
   return data;
 }
+

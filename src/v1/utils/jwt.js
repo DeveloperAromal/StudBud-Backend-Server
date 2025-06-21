@@ -11,3 +11,7 @@ export const generateJwtToken = (payload) => {
 export const verifyJwtToken = (token) => {
   return jwt.verify(token, jwtSecret);
 };
+
+
+
+
