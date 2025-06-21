@@ -10,6 +10,6 @@ export async function fetchTranscript(videoUrl) {
   return res.data.transcript;
 }
 
-fetchTranscript("https://www.youtube.com/watch?v=aggbN-VHTrA")
+fetchTranscript("https://www.youtube.com/watch?v=wIuVvCuiJhU")
   .then((transcript) => console.log(transcript))
   .catch((err) => console.error(err));
