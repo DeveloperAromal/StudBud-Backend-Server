@@ -115,7 +115,7 @@ export async function getProcessedContent(transcript) {
   const url = "https://openrouter.ai/api/v1/chat/completions";
 
   const api_key =
-    "Bearer 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";
+    "Bearer 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";
 
   // old api key : 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
 
