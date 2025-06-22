@@ -170,6 +170,7 @@ ${transcript}`,
 
     const cleanedData = rawText.replace(/```|json/g, "").trim();
     return JSON.parse(cleanedData);
+    
   } catch (e) {
     console.log(e);
   }

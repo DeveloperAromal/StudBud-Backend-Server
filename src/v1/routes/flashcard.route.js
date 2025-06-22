@@ -1,18 +1,15 @@
 import express from "express";
 import { Protect } from "../middleware/auth.middleware.js";
 import {
-  // createFlashCardPost,
-  getFlashCardPost,
-  // generateFlashCardFromYoutubePost,
-  getFlashTranscript,
+  getFlashCard,
+  createFlash,
+  updateFlash,
 } from "../controllers/flashcard.controller.js";
 
 const router = express.Router();
 
-// router.post("/create/flashcard/create", createFlashCardPost);
-router.get("/get/flashcard/get/", getFlashCardPost);
-// router.post("/generate/flashcard/transcript", generateFlashCardFromYoutubePost);
-
-router.post("/generate/transcript", getFlashTranscript);
+router.get("/get/flashcard/:flash_id", getFlashCard);
+router.post("/update/flashcard/progress", updateFlash);
+router.post("/generate/flashcard", createFlash);
 
 export default router;

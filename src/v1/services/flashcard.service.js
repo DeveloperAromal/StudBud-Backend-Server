@@ -2,13 +2,10 @@ import { supabase } from "../config/SupabaseConfig.js";
 import { getProcessedContent } from "../utils/ai.js";
 import { fetchTranscript } from "../utils/transcript.js";
 
-export async function getTranscript(videoUrl) {
+export async function createFlashCard(videoUrl) {
   const response = await fetchTranscript(videoUrl);
-  console.log(response);
-  console.log("AI is processing the transcript.......");
   if (response != null) {
     const content = await getProcessedContent(response);
-    // const { processedContent } = JSON.stringify(rawContent);
     const { data, error } = await supabase
       .from("flashcard")
       .insert([{ content }])
@@ -18,12 +15,23 @@ export async function getTranscript(videoUrl) {
   } else {
     console.log("Error occured");
   }
-  // const response = await fetchTranscript(videoUrl);
-  // console.log(response);
 }
 
-export async function getFlashCard() {
-  const { data, error } = await supabase.from("flashcard").select("*");
+export async function getFlashCardById(flash_id) {
+  const { data, error } = await supabase
+    .from("flashcard")
+    .select("*")
+    .eq("flash_id", flash_id);
+  if (error) throw error;
+  return data;
+}
+
+export async function updateFlashProgress(progress, flash_id) {
+  const { data, error } = await supabase
+    .from("flashcard")
+    .update({ progress })
+    .eq("flash_id", flash_id)
+    .select("progress");
   if (error) throw error;
   return data;
 }
