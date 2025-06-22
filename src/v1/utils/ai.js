@@ -115,7 +115,9 @@ export async function getProcessedContent(transcript) {
   const url = "https://openrouter.ai/api/v1/chat/completions";
 
   const api_key =
-    "Bearer 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";
+    "Bearer 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";
+
+  // old api key : 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
 
   const options = {
     method: "POST",
@@ -170,7 +172,6 @@ ${transcript}`,
 
     const cleanedData = rawText.replace(/```|json/g, "").trim();
     return JSON.parse(cleanedData);
-    
   } catch (e) {
     console.log(e);
   }
