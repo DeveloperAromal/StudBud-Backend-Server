@@ -11,4 +11,4 @@ router.get("/getSubdomainList", getAllDomain);
 router.get("/getSubdomainList/:subdomain", getDomainById);
 router.post("/create/newSubdomain", createNewSubdoamin);
 
-export default router;
+export default router; 
