@@ -4,12 +4,17 @@ import { fetchTranscript } from "../utils/transcript.js";
 
 export async function getTranscript(videoUrl) {
   const response = await fetchTranscript(videoUrl);
-  // console.log(response != null);
-
+  console.log(response);
+  console.log("AI is processing the transcript.......");
   if (response != null) {
-    const proceedContent = await getProcessedContent(response);
-    console.log(`This is the problem: =====> ${proceedContent}`);
-    return proceedContent;
+    const content = await getProcessedContent(response);
+    // const { processedContent } = JSON.stringify(rawContent);
+    const { data, error } = await supabase
+      .from("flashcard")
+      .insert([{ content }])
+      .select("flash_id");
+    if (error) throw error;
+    return data;
   } else {
     console.log("Error occured");
   }

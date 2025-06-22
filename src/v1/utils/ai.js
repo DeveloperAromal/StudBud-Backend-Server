@@ -105,12 +105,17 @@ const transcript = "";
 //   .catch((error) => {
 //     console.log("Error fetching data:", error);
 //   });
+import dotenv from "dotenv";
 
-export const getProcessedContent = (transcript) => {
+dotenv.config();
+
+const auth_key = process.env.OPENROUTER_API_KEY;
+
+export async function getProcessedContent(transcript) {
   const url = "https://openrouter.ai/api/v1/chat/completions";
 
   const api_key =
-    "Bearer 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";
+    "Bearer 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";
 
   const options = {
     method: "POST",
@@ -123,50 +128,49 @@ export const getProcessedContent = (transcript) => {
       messages: [
         {
           role: "user",
-          content: `From the transcript below, create exactly 10 short flashcards in this format:
+          content: `From the transcript below, generate flashcards in this exact JSON format:
 
-Q: <question>
-A: <answer>
-\\n
+[
+  {
+    "details": {
+      "time": <duration in minutes>,
+      "subject": "<subject name>"
+    }
+  },
+  [
+    {
+      "question": "<question 1>",
+      "answer": "<answer 1>"
+    },
+    ...
+    {
+      "question": "<question 10>",
+      "answer": "<answer 10>"
+    }
+  ]
+]
 
-Transcript:
+⚠️ Important:
+- The flashcards must be in a JSON array (surrounded by square brackets).
+- Include exactly 10 flashcards.
+- Do not output individual flashcards as separate objects outside an array.
+- Do not include extra text, explanation, or markdown.
+Transcript: 
 ${transcript}`,
         },
       ],
     }),
   };
-  fetch(url, options)
-    .then((res) => res.json())
-    .then((data) => {
-      const rawText = data.choices[0].message.content;
+  try {
+    const res = await fetch(url, options);
+    const data = await res.json();
 
-      // // console.log("🧠 RAW AI RESPONSE:\n");
-      // console.log(rawText); // <--- DEBUG THIS FIRST
+    console.log(data);
+    const rawText = data.choices[0].message.content;
 
-      const flashcards = [];
-
-      // Try splitting by real line breaks instead of escaped \n
-      const lines = rawText.split("\n").filter((line) => line.trim() !== "");
-
-      for (let i = 0; i < lines.length; i++) {
-        const qMatch = lines[i].match(/^Q:\s*(.+)$/i);
-        const aMatch = lines[i + 1]?.match(/^A:\s*(.+)$/i);
-
-        if (qMatch && aMatch) {
-          flashcards.push({
-            question: qMatch[1].trim(),
-            answer: aMatch[1].trim(),
-          });
-          i++; // Skip the answer line next loop
-        }
-      }
-
-      // console.log("\n✅ FLASHCARDS JSON:\n");
-      // console.log(JSON.stringify(flashcards, null, 2));
-
-      return flashcards;
-    })
-    .catch((error) => {
-      console.log("Error fetching data:", error);
-    });
-};
+    const cleanedData = rawText.replace(/```|json/g, "").trim();
+    return JSON.parse(cleanedData);
+  } catch (e) {
+    console.log(e);
+  }
+}
