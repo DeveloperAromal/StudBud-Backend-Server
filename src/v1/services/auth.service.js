@@ -28,7 +28,8 @@ export const signIn = async ({ email, password }) => {
   if (studentError) {
     console.log(studentError);
   }
-
+  console.log(`This is the main password:::=== ${password}`);
+  console.log(`This is the hashed password:::=== ${studentData.password}`);
   const isValid = await bcrypt.compare(password, studentData.password);
 
   if (!isValid) {

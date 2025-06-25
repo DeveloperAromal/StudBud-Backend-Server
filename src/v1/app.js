@@ -9,6 +9,7 @@ import homeworkRoute from "./routes/homework.route.js";
 import subdomainRoute from "./routes/subdomain.route.js";
 import flashcardRoute from "./routes/flashcard.route.js";
 // import countryRoute from "./routes/country.route.js";
+import announcementRoute from "./routes/announcement.route.js";
 
 dotenv.config();
 
@@ -28,4 +29,6 @@ app.use("/api/v1", homeworkRoute);
 app.use("/api/v1", subdomainRoute);
 app.use("/api/v1", flashcardRoute);
 // app.use("/api/v1", countryRoute);
+app.use("/api/v1", announcementRoute);
+
 export default app;
