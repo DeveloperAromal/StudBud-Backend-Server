@@ -18,3 +18,5 @@ export async function getAnnouncement(classname) {
   if (error) throw error;
   return data;
 }
+
+

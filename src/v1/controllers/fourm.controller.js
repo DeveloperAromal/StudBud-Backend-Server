@@ -1,4 +1,8 @@
-import { createPost, getPost } from "../services/fourm.service.js";
+import {
+  createPost,
+  getDissusionDataByDisId,
+  getPost,
+} from "../services/fourm.service.js";
 
 export const createFourmPost = async (req, res) => {
   try {
@@ -15,6 +19,16 @@ export const getPostByClass = async (req, res) => {
     const { classname } = req.params;
     const postByClass = await getPost(classname);
     res.json(postByClass);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getDissusionData = async (req, res) => {
+  try {
+    const { disid } = req.params;
+    const getData = await getDissusionDataByDisId(disid);
+    res.json(getData);
   } catch (e) {
     console.log(e);
   }
