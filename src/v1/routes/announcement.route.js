@@ -7,7 +7,7 @@ import {
 
 const router = express.Router();
 
-router.post("/create/announcement/post", Protect, createAnnouncementPost);
+router.post("/create/announcement/post", createAnnouncementPost);
 router.get("/get/announcement/post/:classname", getAnnouncementByClass);
 
 export default router;
