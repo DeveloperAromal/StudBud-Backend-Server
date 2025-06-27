@@ -45,3 +45,15 @@ export const validateUser = async (req, res) => {
     console.log(e);
   }
 };
+
+export const validateTeacher = async (req, res) => {
+  try {
+    const t_id = req.user.s_id;
+
+    const user = await validate(t_id);
+
+    res.json({ authenticated: "True", user });
+  } catch (e) {
+    console.log(e);
+  }
+};

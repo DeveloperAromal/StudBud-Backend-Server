@@ -18,6 +18,15 @@ export async function signUp(name, email, password, classname) {
   return data;
 }
 
+export async function signUpTeacher(name, phonenumber, password) {
+  const { data, error } = await supabase
+    .from("t_auth")
+    .insert(name, phonenumber, password)
+    .select();
+  if (error) throw error;
+  return data;
+}
+
 export const signIn = async ({ email, password }) => {
   const { data: studentData, error: studentError } = await supabase
     .from("s_auth")
@@ -41,6 +50,34 @@ export const signIn = async ({ email, password }) => {
     const token = generateJwtToken({
       id: studentData.id,
       s_id: studentData.s_id,
+    });
+    return token;
+  }
+};
+
+export const signInTeachers = async ({ phonenumber, password }) => {
+  const { data: teacherData, error: teacherError } = await supabase
+    .from("t_auth")
+    .select("*")
+    .eq("phonenumber", phonenumber)
+    .single();
+
+  if (teacherError) {
+    console.log(teacherError);
+  }
+  console.log(`This is the main password:::=== ${password}`);
+  console.log(`This is the hashed password:::=== ${teacherData.password}`);
+  const isValid = await bcrypt.compare(password, teacherData.password);
+
+  if (!isValid) {
+    console.log("password mismatch");
+    return null;
+  }
+
+  if (teacherData && !teacherError) {
+    const token = generateJwtToken({
+      id: teacherData.id,
+      s_id: teacherData.s_id,
     });
     return token;
   }
