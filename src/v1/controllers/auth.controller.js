@@ -1,4 +1,8 @@
-import { signUp, signUpTeachers } from "../services/auth.service.js";
+import {
+  signUp,
+  signUpTeachers,
+  signInTeachers,
+} from "../services/auth.service.js";
 import { signIn } from "../services/auth.service.js";
 import { validate } from "../services/auth.service.js";
 import bcrypt from "bcrypt";
@@ -52,9 +56,9 @@ export const signInUser = async (req, res) => {
   }
 };
 
-export const signInTeachers = async (req, res) => {
+export const signInTeacher = async (req, res) => {
   try {
-    const token = await signInTeacher(req.body);
+    const token = await signInTeachers(req.body);
 
     if (!token) res.status(401).json({ error: "Authentication failed" });
     res.json({ token });

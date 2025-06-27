@@ -1,5 +1,5 @@
 import {
-  signInTeachers,
+  signInTeacher,
   signUpTeacher,
   signUpUser,
   validateTeacher,
@@ -17,6 +17,6 @@ router.post("/user/loginUser", signInUser);
 
 router.get("/user/authentication/protect/validate", Protect, validateTeacher);
 router.post("/user/createTeacher", signUpTeacher);
-router.post("/user/loginTeacher", signInTeachers);
+router.post("/user/loginTeacher", signInTeacher);
 
 export default router;
