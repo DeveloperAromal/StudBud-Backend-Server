@@ -28,3 +28,30 @@ export async function getDissusionDataByDisId(disid) {
   if (error) throw error;
   return data;
 }
+
+export async function insertCmt(disid, comment) {
+  console.log(`Hiaaaaaaaaa ${disid}\n ${comment}`);
+  if (!disid || !comment) throw new Error("disid and comment are required");
+
+  const { data: existingData, error: fetchError } = await supabase
+    .from("discussion")
+    .select("comment")
+    .eq("disid", disid)
+    .single();
+
+  if (fetchError) throw fetchError;
+
+  const existingComments = existingData?.comment || [];
+  console.log(existingComments);
+  const updatedComments = [...existingComments, ...comment];
+  console.log(updatedComments);
+  const { data, error } = await supabase
+    .from("discussion")
+    .update({ comment: updatedComments })
+    .eq("disid", disid)
+    .select();
+
+  if (error) throw error;
+
+  return data;
+}

@@ -2,6 +2,7 @@ import {
   createPost,
   getDissusionDataByDisId,
   getPost,
+  insertCmt,
 } from "../services/fourm.service.js";
 
 export const createFourmPost = async (req, res) => {
@@ -29,6 +30,16 @@ export const getDissusionData = async (req, res) => {
     const { disid } = req.params;
     const getData = await getDissusionDataByDisId(disid);
     res.json(getData);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const InsertNewComment = async (req, res) => {
+  try {
+    const { disid, comment } = req.body;
+    const inserCmtToDb = await insertCmt(disid, comment);
+    res.json(inserCmtToDb);
   } catch (e) {
     console.log(e);
   }
