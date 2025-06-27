@@ -18,7 +18,7 @@ export async function signUp(name, email, password, classname) {
   return data;
 }
 
-export async function signUpTeacher(name, phonenumber, password) {
+export async function signUpTeachers(name, phonenumber, password) {
   const { data, error } = await supabase
     .from("t_auth")
     .insert(name, phonenumber, password)
@@ -98,6 +98,26 @@ export const validate = async (s_id) => {
     return {
       message: "Authenticated",
       user: s_id,
+      response: apiRespose.data,
+    };
+  }
+};
+
+export const validateTeachers = async (t_id) => {
+  const { data: teachersData, error: teachersError } = await supabase
+    .from("t_auth")
+    .select("t_id")
+    .eq("t_id", t_id)
+    .single();
+  if (teachersData && !teachersError) {
+    const t_id = teachersData.t_id;
+
+    const apiRespose = await axios.get(
+      `${apiBaseUrl}:${port}/api/v1/userById/${s_id}`
+    );
+    return {
+      message: "Authenticated",
+      user: t_id,
       response: apiRespose.data,
     };
   }

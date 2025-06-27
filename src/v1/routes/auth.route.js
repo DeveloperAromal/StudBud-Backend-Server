@@ -1,9 +1,13 @@
-import { signUpUser, validateTeacher } from "../controllers/auth.controller.js";
+import {
+  signInTeachers,
+  signUpTeacher,
+  signUpUser,
+  validateTeacher,
+} from "../controllers/auth.controller.js";
 import { signInUser } from "../controllers/auth.controller.js";
 import { validateUser } from "../controllers/auth.controller.js";
 import { Protect } from "../middleware/auth.middleware.js";
 import express from "express";
-import { signInTeachers, signUpTeacher } from "../services/auth.service.js";
 
 const router = express.Router();
 
