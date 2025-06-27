@@ -15,7 +15,7 @@ router.get("/user/authentication/protect/validate", Protect, validateUser);
 router.post("/user/createUser", signUpUser);
 router.post("/user/loginUser", signInUser);
 
-router.get("/user/authentication/protect/validate", Protect, validateTeacher);
+router.get("/user/authentication/protect/validate/teacher", Protect, validateTeacher);
 router.post("/user/createTeacher", signUpTeacher);
 router.post("/user/loginTeacher", signInTeacher);
 
