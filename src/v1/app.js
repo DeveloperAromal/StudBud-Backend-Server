@@ -10,6 +10,8 @@ import subdomainRoute from "./routes/subdomain.route.js";
 import flashcardRoute from "./routes/flashcard.route.js";
 // import countryRoute from "./routes/country.route.js";
 import announcementRoute from "./routes/announcement.route.js";
+import leaderboardRoute from "./routes/leaderboard.route.js";
+import meetRoute from "./routes/zoom.route.js";
 
 dotenv.config();
 
@@ -30,5 +32,7 @@ app.use("/api/v1", subdomainRoute);
 app.use("/api/v1", flashcardRoute);
 // app.use("/api/v1", countryRoute);
 app.use("/api/v1", announcementRoute);
+app.use("/api/v1/", leaderboardRoute);
+app.use("/api/v1", meetRoute);
 
 export default app;

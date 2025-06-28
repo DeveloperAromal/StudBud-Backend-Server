@@ -12,6 +12,5 @@ router.post("/homework/postHomework", homeworkUpload);
 router.get("/get/homework/:classname", fetchHomeworkByClass);
 router.post("/update/hwstatus", updateHwStatus);
 router.post("/homework/postHomework", homeworkUpload);
-router.get("/get/homework/:classname", fetchHomeworkByClass);
 
 export default router;

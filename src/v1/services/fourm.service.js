@@ -30,9 +30,6 @@ export async function getDissusionDataByDisId(disid) {
 }
 
 export async function insertCmt(disid, comment) {
-  console.log(`Hiaaaaaaaaa ${disid}\n ${comment}`);
-  if (!disid || !comment) throw new Error("disid and comment are required");
-
   const { data: existingData, error: fetchError } = await supabase
     .from("discussion")
     .select("comment")
@@ -42,9 +39,7 @@ export async function insertCmt(disid, comment) {
   if (fetchError) throw fetchError;
 
   const existingComments = existingData?.comment || [];
-  console.log(existingComments);
   const updatedComments = [...existingComments, ...comment];
-  console.log(updatedComments);
   const { data, error } = await supabase
     .from("discussion")
     .update({ comment: updatedComments })
