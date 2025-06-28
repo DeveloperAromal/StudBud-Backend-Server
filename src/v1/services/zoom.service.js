@@ -20,13 +20,22 @@ export async function CreateMeeting(meetingData) {
     const data = meetRes.data;
     const join_url = data?.join_url;
     const start_url = data?.start_url;
+
+    // Combine meetingData + URLs
+    const recordToInsert = {
+      ...meetingData,
+      join_url,
+      start_url,
+    };
+
     const { data: meetData, error } = await supabase
       .from("meet")
-      .insert([{ join_url, start_url }]);
+      .insert([recordToInsert]);
 
     if (error) throw error;
     return meetData;
   } catch (e) {
     console.log(e);
+    throw e;
   }
 }
