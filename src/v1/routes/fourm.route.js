@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 
-router.post("/create/fourm/post", Protect, createFourmPost);
+router.post("/create/fourm/post", createFourmPost);
 router.get("/get/fourm/post/:classname", getPostByClass);
 router.get("/get/disscusiondatabyid/:disid", getDissusionData);
 router.post("/insert/comment", InsertNewComment);
