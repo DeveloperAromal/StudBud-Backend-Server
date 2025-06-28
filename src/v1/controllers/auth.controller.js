@@ -82,7 +82,7 @@ export const validateUser = async (req, res) => {
 
 export const validateTeacher = async (req, res) => {
   try {
-    const t_id = req.user.s_id;
+    const t_id = req.user.t_id;
 
     const user = await validate(t_id);
 

@@ -20,3 +20,26 @@ export async function getHomework(classname) {
 
   return data;
 }
+export async function updateUserDataInHomeWork(statusEntry, hwId) {
+  const { data: existingData, error: fetchError } = await supabase
+    .from("homework")
+    .select("status")
+    .eq("hwId", hwId)
+    .single();
+
+  if (fetchError) throw fetchError;
+
+  const currentStatusArray = Array.isArray(existingData?.status)
+    ? existingData.status
+    : [];
+
+  const updatedStatusArray = [...currentStatusArray, statusEntry];
+  const { data, error } = await supabase
+    .from("homework")
+    .update({ status: updatedStatusArray })
+    .eq("hwId", hwId)
+    .select();
+
+  if (error) throw error;
+  return data;
+}
