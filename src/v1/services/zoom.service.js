@@ -1,10 +1,4 @@
-import axios from "axios";
-import { supabase } from "../config/SupabaseConfig.js";
-import { getZoomAccessToken } from "../utils/zoomClient.js";
-
-export async function CreateMeeting(meetingData) {
-  console.log("meetingData:", meetingData);
-
+export async function CreateMeeting(meetingData, class_name) {
   const access_token = await getZoomAccessToken();
   try {
     const meetRes = await axios.post(
@@ -17,15 +11,17 @@ export async function CreateMeeting(meetingData) {
         },
       }
     );
+
     const data = meetRes.data;
     const join_url = data?.join_url;
     const start_url = data?.start_url;
 
-    // Combine meetingData + URLs
     const recordToInsert = {
       ...meetingData,
+      settings: JSON.stringify(meetingData.settings), // convert to JSON string if needed
       join_url,
       start_url,
+      class_name, // ✅ insert separately
     };
 
     const { data: meetData, error } = await supabase
