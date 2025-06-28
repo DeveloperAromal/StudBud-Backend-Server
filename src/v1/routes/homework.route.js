@@ -11,5 +11,7 @@ const router = express.Router();
 router.post("/homework/postHomework", Protect, homeworkUpload);
 router.get("/get/homework/:classname", Protect, fetchHomeworkByClass);
 router.post("/update/hwstatus", updateHwStatus);
+router.post("/homework/postHomework", homeworkUpload);
+router.get("/get/homework/:classname", fetchHomeworkByClass);
 
 export default router;
