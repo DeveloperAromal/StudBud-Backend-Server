@@ -1,8 +1,13 @@
 import express from "express";
-import { createMeetingLink } from "../controllers/zoom.controller.js";
+import {
+  createMeetingLink,
+  getMeetingData,
+} from "../controllers/zoom.controller.js";
 
 const router = express.Router();
 
 router.post("/create/meet", createMeetingLink);
+
+router.get("/get/meetdata/:classname", getMeetingData);
 
 export default router;
