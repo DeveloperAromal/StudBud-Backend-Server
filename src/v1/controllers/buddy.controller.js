@@ -3,6 +3,7 @@ import {
   buudyAi,
   getStatusDataFrom,
   getStatusDataReq,
+  personalAi,
   rejectBuddy,
   reqBuddy,
 } from "../services/buddy.service.js";
@@ -61,6 +62,17 @@ export const buddyQuestions = async (req, res) => {
   try {
     const { question } = req.params;
     const answer = await buudyAi(question);
+    res.json({ answer });
+  } catch (e) {
+    console.error("Buddy AI error:", e);
+    res.status(500).json({ error: "Failed to get response from Buddy AI." });
+  }
+};
+
+export const personalAiAgentForStudBud = async (req, res) => {
+  try {
+    const { question } = req.params;
+    const answer = await personalAi(question);
     res.json({ answer });
   } catch (e) {
     console.error("Buddy AI error:", e);

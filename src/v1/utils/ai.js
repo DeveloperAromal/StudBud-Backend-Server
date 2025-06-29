@@ -108,3 +108,50 @@ Question: ${question}`,
     return "Sorry, I couldn’t answer that right now.";
   }
 }
+
+export async function personalAiAgent(question) {
+  const url = "https://openrouter.ai/api/v1/chat/completions";
+
+  const api_key = `Bearer ${auth_key}`;
+
+  const options = {
+    method: "POST",
+    headers: {
+      Authorization: api_key,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: "google/gemma-3n-e4b-it:free",
+      messages: [
+        {
+          role: "user",
+          content: `You are StudBud AI, an intelligent assistant for the StudBud SaaS platform.
+          Your role is to represent the product and help users understand how StudBud makes school life easier.
+          Provide short, clear answers without markdown, bullet points, or formatting.
+          
+          StudBud offers features like smart dashboards, attendance tracking, assignments, communication tools, and more—all in a single dynamic web ERP for schools.
+          
+          Respond helpfully and to the point.
+          
+          Question: ${question}`,
+        },
+      ],
+    }),
+  };
+
+  try {
+    console.log("Thinking...");
+    const res = await fetch(url, options);
+
+    if (!res.ok) {
+      const errorBody = await res.text();
+      throw new Error(`Error ${res.status}: ${errorBody}`);
+    }
+
+    const data = await res.json();
+    return data.choices?.[0]?.message?.content || "No reply.";
+  } catch (e) {
+    console.error("StudyBuddy AI error:", e.message);
+    return "Sorry, I couldn’t answer that right now.";
+  }
+}

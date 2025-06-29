@@ -1,5 +1,5 @@
 import { supabase } from "../config/SupabaseConfig.js";
-import { studyBuddyAi } from "../utils/ai.js";
+import { personalAiAgent, studyBuddyAi } from "../utils/ai.js";
 
 export async function reqBuddy(from_id, req_id) {
   const { data, error } = await supabase
@@ -55,6 +55,20 @@ export async function buudyAi(question) {
 
   try {
     const response = await studyBuddyAi(question);
+    return response;
+  } catch (err) {
+    console.error("Error in buudyAi:", err.message);
+    return "Oops! Something went wrong while answering your question.";
+  }
+}
+
+export async function personalAi(question) {
+  if (!question || question.trim() === "") {
+    return "Please enter a valid question.";
+  }
+
+  try {
+    const response = await personalAiAgent(question);
     return response;
   } catch (err) {
     console.error("Error in buudyAi:", err.message);
