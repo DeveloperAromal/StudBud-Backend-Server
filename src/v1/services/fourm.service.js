@@ -50,3 +50,5 @@ export async function insertCmt(disid, comment) {
 
   return data;
 }
+
+

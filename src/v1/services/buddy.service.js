@@ -28,3 +28,12 @@ export async function rejectBuddy(from_id, req_id) {
   if (error) throw error;
   return data;
 }
+
+export async function getStatusData(s_id) {
+  const { data, error } = await supabase
+    .from("studybuddy")
+    .select("*")
+    .eq("from_id", s_id);
+  if (error) throw error;
+  return data;
+}
