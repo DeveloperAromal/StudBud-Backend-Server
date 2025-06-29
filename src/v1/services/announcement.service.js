@@ -7,7 +7,7 @@ export async function createAnnouncement(title, description, classname) {
     .select();
 
   if (error) throw error;
-  return data;
+  return data; 
 }
 
 export async function getAnnouncement(classname) {

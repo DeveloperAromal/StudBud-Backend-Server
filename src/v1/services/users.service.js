@@ -8,3 +8,12 @@ export async function getUserById(s_id) {
   if (error) throw error;
   return data;
 }
+
+export async function getUserByClassname(classname) {
+  const { data, error } = await supabase
+    .from("s_auth")
+    .select("*")
+    .eq("classname", classname);
+  if (error) throw error;
+  return data;
+}

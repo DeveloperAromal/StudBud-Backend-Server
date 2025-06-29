@@ -112,9 +112,7 @@ export const validateTeachers = async (t_id) => {
   if (teachersData && !teachersError) {
     const t_id = teachersData.t_id;
 
-    const apiRespose = await axios.get(
-      `${apiBaseUrl}:${port}/api/v1/userById/${s_id}`
-    );
+    const apiRespose = await axios.get(`${apiBaseUrl}:${port}/api/v1/`);
     return {
       message: "Authenticated",
       user: t_id,
