@@ -25,3 +25,25 @@ export async function getExam(classname) {
   if (error) throw error;
   return data;
 }
+
+export async function insertStatus(examId, status) {
+  const { data: existingData, error: fetchError } = await supabase
+    .from("exams")
+    .select("status")
+    .eq("examId", examId)
+    .single();
+
+  if (fetchError) throw fetchError;
+
+  const existingStatus = existingData?.status || [];
+  const updatedStatus = [...existingStatus, ...status];
+  const { data, error } = await supabase
+    .from("exams")
+    .update({ status: updatedStatus })
+    .eq("examId", examId)
+    .select();
+
+  if (error) throw error;
+
+  return data;
+}
