@@ -52,7 +52,7 @@ export async function insertStatus(examId, status) {
 export async function updateMark(examId, s_id, mark) {
   const { data: existing, error: fetchError } = await supabase
     .from("exams")
-    .select("mark")
+    .select("marks")
     .eq("examId", examId)
     .single();
 
