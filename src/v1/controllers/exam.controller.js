@@ -47,8 +47,8 @@ export const insertNewStatus = async (req, res) => {
 
 export const getStatusWithNamesAndMarks = async (req, res) => {
   try {
-    const { classname } = req.params;
-    const result = await getStatusByClassname(classname);
+    const { examId } = req.params;
+    const result = await getStatusByClassname(examId);
     res.json(result);
   } catch (e) {
     console.log(e);

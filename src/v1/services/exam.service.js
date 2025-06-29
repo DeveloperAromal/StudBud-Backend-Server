@@ -71,11 +71,11 @@ export async function updateMark(examId, s_id, mark) {
   return data;
 }
 
-export async function getStatusByClassname(classname) {
+export async function getStatusByClassname(examId) {
   const { data: exams, error } = await supabase
     .from("exams")
     .select("status, marks")
-    .eq("classname", classname);
+    .eq("examId", examId);
 
   if (error) throw error;
 
