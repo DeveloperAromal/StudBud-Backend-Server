@@ -63,7 +63,7 @@ export async function updateMark(examId, s_id, mark) {
 
   const { data, error } = await supabase
     .from("exams")
-    .update({ mark: currentMark })
+    .update({ marks: currentMark })
     .eq("examId", examId)
     .select();
 
