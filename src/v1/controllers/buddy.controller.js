@@ -1,6 +1,7 @@
 import {
   acceptBuddy,
-  getStatusData,
+  getStatusDataFrom,
+  getStatusDataReq,
   rejectBuddy,
   reqBuddy,
 } from "../services/buddy.service.js";
@@ -35,10 +36,20 @@ export const rejectBud = async (req, res) => {
   }
 };
 
-export const getStatusById = async (req, res) => {
+export const getStatusByIdFrom = async (req, res) => {
   try {
     const { s_id } = req.params;
-    const statusData = await getStatusData(s_id);
+    const statusData = await getStatusDataFrom(s_id);
+    res.json(statusData);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const getStatusByIdReq = async (req, res) => {
+  try {
+    const { s_id } = req.params;
+    const statusData = await getStatusDataReq(s_id);
     res.json(statusData);
   } catch (e) {
     console.log(e);
