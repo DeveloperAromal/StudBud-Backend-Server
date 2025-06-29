@@ -1,4 +1,10 @@
-import { createExam, getExam, insertStatus } from "../services/exam.service.js";
+import {
+  createExam,
+  getExam,
+  insertStatus,
+  getStatusByClassname,
+  updateMark,
+} from "../services/exam.service.js";
 
 export const createExamPost = async (req, res) => {
   try {
@@ -13,6 +19,7 @@ export const createExamPost = async (req, res) => {
     res.json(exam);
   } catch (e) {
     console.log(e);
+    res.status(500).json({ error: "Failed to create exam." });
   }
 };
 
@@ -23,6 +30,7 @@ export const getExamByClass = async (req, res) => {
     res.json(examByClass);
   } catch (e) {
     console.log(e);
+    res.status(500).json({ error: "Failed to fetch exams." });
   }
 };
 
@@ -33,5 +41,28 @@ export const insertNewStatus = async (req, res) => {
     res.json(insertStatusToDb);
   } catch (e) {
     console.log(e);
+    res.status(500).json({ error: "Failed to insert status." });
+  }
+};
+
+export const getStatusWithNamesAndMarks = async (req, res) => {
+  try {
+    const { classname } = req.params;
+    const result = await getStatusByClassname(classname);
+    res.json(result);
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: "Failed to fetch status by classname." });
+  }
+};
+
+export const postMarkForStudent = async (req, res) => {
+  try {
+    const { examid, s_id, mark } = req.body;
+    const updated = await updateMark(examid, s_id, mark);
+    res.json({ success: true, data: updated });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: "Failed to update mark." });
   }
 };

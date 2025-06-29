@@ -1,4 +1,5 @@
 import { supabase } from "../config/SupabaseConfig.js";
+import axios from "axios";
 
 export async function createExam(
   title,
@@ -46,4 +47,62 @@ export async function insertStatus(examId, status) {
   if (error) throw error;
 
   return data;
+}
+
+export async function updateMark(examId, s_id, mark) {
+  const { data: existing, error: fetchError } = await supabase
+    .from("exams")
+    .select("mark")
+    .eq("examId", examId)
+    .single();
+
+  if (fetchError) throw fetchError;
+
+  const currentMark = existing?.mark || {};
+  currentMark[s_id] = mark;
+
+  const { data, error } = await supabase
+    .from("exams")
+    .update({ mark: currentMark })
+    .eq("examId", examId)
+    .select();
+
+  if (error) throw error;
+  return data;
+}
+
+export async function getStatusByClassname(classname) {
+  const { data: exams, error } = await supabase
+    .from("exams")
+    .select("status, marks")
+    .eq("classname", classname);
+
+  if (error) throw error;
+
+  const results = [];
+
+  for (const exam of exams) {
+    const statusList = exam.status || [];
+    const marks = exam.marks || {};
+
+    for (const entry of statusList) {
+      const s_id = Object.keys(entry)[0];
+      const studentData = entry[s_id];
+
+      const res = await axios.get(
+        `http://localhost:8080/api/v1/userById/${s_id}`
+      );
+      const name = res.data?.name || "Unknown";
+
+      results.push({
+        name,
+        s_id,
+        answers: studentData.answers || {},
+        tabSwitched: studentData.tabSwitched || false,
+        marks: marks[s_id] || null,
+      });
+    }
+  }
+
+  return results;
 }
