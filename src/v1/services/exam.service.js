@@ -74,7 +74,7 @@ export async function updateMark(examId, s_id, mark) {
 export async function getStatusByClassname(examId) {
   const { data: exams, error } = await supabase
     .from("exams")
-    .select("status, marks")
+    .select("status, marks, question")
     .eq("examId", examId);
 
   if (error) throw error;
@@ -84,19 +84,15 @@ export async function getStatusByClassname(examId) {
   for (const exam of exams) {
     const statusList = exam.status || [];
     const marks = exam.marks || {};
+    const question = exam.question;
 
     for (const entry of statusList) {
       const s_id = Object.keys(entry)[0];
       const studentData = entry[s_id];
 
-      const res = await axios.get(
-        `http://localhost:8080/api/v1/userById/${s_id}`
-      );
-      const name = res.data?.name || "Unknown";
-
       results.push({
-        name,
         s_id,
+        question,
         answers: studentData.answers || {},
         tabSwitched: studentData.tabSwitched || false,
         marks: marks[s_id] || null,
