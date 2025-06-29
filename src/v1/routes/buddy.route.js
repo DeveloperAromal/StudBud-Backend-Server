@@ -1,6 +1,7 @@
 import express from "express";
 import {
   acceptBud,
+  buddyQuestions,
   getStatusByIdFrom,
   getStatusByIdReq,
   rejectBud,
@@ -14,5 +15,6 @@ router.post("/accept/buddy", acceptBud);
 router.post("/reject/buddy", rejectBud);
 router.get("/get/statusFrom/:s_id", getStatusByIdFrom);
 router.get("/get/statusReq/:s_id", getStatusByIdReq);
+router.get("/post/questions/:question", buddyQuestions);
 
 export default router;

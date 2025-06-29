@@ -1,5 +1,6 @@
 import {
   acceptBuddy,
+  buudyAi,
   getStatusDataFrom,
   getStatusDataReq,
   rejectBuddy,
@@ -53,5 +54,16 @@ export const getStatusByIdReq = async (req, res) => {
     res.json(statusData);
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const buddyQuestions = async (req, res) => {
+  try {
+    const { question } = req.params;
+    const answer = await buudyAi(question);
+    res.json({ answer });
+  } catch (e) {
+    console.error("Buddy AI error:", e);
+    res.status(500).json({ error: "Failed to get response from Buddy AI." });
   }
 };
