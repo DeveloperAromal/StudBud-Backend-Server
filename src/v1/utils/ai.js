@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-
 dotenv.config();
 
 const auth_key = process.env.OPENROUTER_API_KEY;
@@ -7,10 +6,7 @@ const auth_key = process.env.OPENROUTER_API_KEY;
 export async function getProcessedContent(transcript) {
   const url = "https://openrouter.ai/api/v1/chat/completions";
 
-  const api_key =
-    "Bearer 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";
-
-  // old api key : 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
+  const api_key = `Bearer ${auth_key}`;
 
   const options = {
     method: "POST",
@@ -69,11 +65,11 @@ ${transcript}`,
     console.log(e);
   }
 }
+
 export async function studyBuddyAi(question) {
   const url = "https://openrouter.ai/api/v1/chat/completions";
 
-  const api_key =
-    "Bearer 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";
+  const api_key = `Bearer ${auth_key}`;
 
   const options = {
     method: "POST",
@@ -112,5 +108,3 @@ Question: ${question}`,
     return "Sorry, I couldn’t answer that right now.";
   }
 }
-
-studyBuddyAi("Hi, can you help me with quadratic equations?").then(console.log);
