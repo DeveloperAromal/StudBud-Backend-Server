@@ -1,4 +1,4 @@
-import { CreateMeeting, getMeetingByClass } from "../services/zoom.service.js";
+import { CreateMeeting, getMeetingByClass, getMeetingBysubdomain } from "../services/zoom.service.js";
 
 export const createMeetingLink = async (req, res) => {
   try {
@@ -23,7 +23,7 @@ export const getMeetingData = async (req, res) => {
 export const getMeetingDataBySubdomain = async (req, res) => {
   try {
     const { subdomain } = req.params;
-    const link = await getMeetingByClass(subdomain);
+    const link = await getMeetingBysubdomain(subdomain);
     res.json(link);
   } catch (e) {
     console.log(e);
