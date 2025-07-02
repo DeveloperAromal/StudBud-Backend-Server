@@ -5,9 +5,9 @@ import {
 
 export const markStudentsAbsentes = async (req, res) => {
   try {
-    const { s_id, newDaysByMonth } = req.body;
+    const { s_id, newDaysByMonth, subdomain } = req.body;
 
-    const absent = await markStudent(s_id, newDaysByMonth);
+    const absent = await markStudent(s_id, newDaysByMonth, subdomain);
     res.json(absent);
   } catch (e) {
     console.log(e);

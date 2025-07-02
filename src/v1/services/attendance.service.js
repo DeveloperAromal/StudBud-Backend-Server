@@ -1,6 +1,6 @@
 import { supabase } from "../config/SupabaseConfig.js";
 
-export async function markStudent(s_id, newDaysByMonth) {
+export async function markStudent(s_id, newDaysByMonth, subdomain) {
   if (typeof newDaysByMonth !== "object" || Array.isArray(newDaysByMonth)) {
     console.error(
       "newDaysByMonth must be an object like { '2025-06': [1, 2, 3] }"
@@ -30,7 +30,7 @@ export async function markStudent(s_id, newDaysByMonth) {
       console.log("No record found, inserting new record");
       const { data, error: insertError } = await supabase
         .from("absentees")
-        .insert([{ s_id, absData: newDaysByMonth }])
+        .insert([{ s_id, absData: newDaysByMonth, subdomain }])
         .select();
 
       if (insertError) {
