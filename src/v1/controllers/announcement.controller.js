@@ -1,4 +1,4 @@
-import { createAnnouncement, getAnnouncement } from "../services/announcement.service.js";
+import { createAnnouncement, getAnnouncement, getAnnouncementBySubDomain } from "../services/announcement.service.js";
 
 export const createAnnouncementPost = async (req, res) => {
   try {
@@ -20,6 +20,15 @@ export const getAnnouncementByClass = async (req, res) => {
     const { classname, subdomain } = req.params;
     const announcementByClass = await getAnnouncement(classname, subdomain);
     res.json(announcementByClass);
+  } catch (e) {
+    console.log(e);
+  }
+};
+export const getAnnouncementBySubdomain = async (req, res) => {
+  try {
+    const { subdomain } = req.params;
+    const announcementBysubDomain = await getAnnouncementBySubDomain(subdomain);
+    res.json(announcementBysubDomain);
   } catch (e) {
     console.log(e);
   }

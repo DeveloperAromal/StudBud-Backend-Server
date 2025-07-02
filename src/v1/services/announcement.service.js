@@ -24,3 +24,11 @@ export async function getAnnouncement(classname, subdomain) {
   if (error) throw error;
   return data;
 }
+export async function getAnnouncementBySubDomain(subdomain) {
+  const { data, error } = await supabase
+    .from("announcement")
+    .select("*")
+    .eq("subdomain", subdomain);
+  if (error) throw error;
+  return data;
+}
