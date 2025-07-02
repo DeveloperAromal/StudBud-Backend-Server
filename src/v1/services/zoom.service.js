@@ -53,3 +53,14 @@ export async function getMeetingByClass(classname, subdomain) {
 
   return data;
 }
+
+export async function getMeetingBysubdomain(subdomain) {
+  const { data, error } = await supabase
+    .from("meet")
+    .select("*")
+    .eq("subdomain", subdomain);
+
+  if (error) throw error;
+
+  return data;
+}

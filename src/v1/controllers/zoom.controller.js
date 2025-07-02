@@ -19,3 +19,13 @@ export const getMeetingData = async (req, res) => {
     console.log(e);
   }
 };
+
+export const getMeetingDataBySubdomain = async (req, res) => {
+  try {
+    const { subdomain } = req.params;
+    const link = await getMeetingByClass(subdomain);
+    res.json(link);
+  } catch (e) {
+    console.log(e);
+  }
+};
