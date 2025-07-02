@@ -27,6 +27,18 @@ export async function getHomework(classname, subdomain) {
 
   return data;
 }
+
+export async function getHomeworkBySubDomain(subdomain) {
+  const { data, error } = await supabase
+    .from("homework")
+    .select("*")
+    .eq("subdomain", subdomain);
+
+  if (error) throw error;
+
+  return data;
+}
+
 export async function updateUserDataInHomeWork(statusEntry, hwId) {
   const { data: existingData, error: fetchError } = await supabase
     .from("homework")

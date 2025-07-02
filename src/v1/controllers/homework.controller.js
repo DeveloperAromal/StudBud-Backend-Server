@@ -1,5 +1,6 @@
 import {
   getHomework,
+  getHomeworkBySubDomain,
   postHomework,
   updateUserDataInHomeWork,
 } from "../services/homework.service.js";
@@ -29,7 +30,15 @@ export const fetchHomeworkByClass = async (req, res) => {
     console.log(e);
   }
 };
-
+export const fetchHomeworkBySubdomain = async (req, res) => {
+  try {
+    const { subdomain } = req.params;
+    const fetchHomework = await getHomeworkBySubDomain(subdomain);
+    res.json(fetchHomework);
+  } catch (e) {
+    console.log(e);
+  }
+};
 export const updateHwStatus = async (req, res) => {
   try {
     const { status, hwId } = req.body;
