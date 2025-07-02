@@ -2,6 +2,7 @@ import {
   signUp,
   signUpTeachers,
   signInTeachers,
+  validateTeachers,
 } from "../services/auth.service.js";
 import { signIn } from "../services/auth.service.js";
 import { validate } from "../services/auth.service.js";
@@ -15,6 +16,7 @@ export const signUpUser = async (req, res) => {
 
     const createUser = await signUp({
       name,
+      subdomain,
       password: hashPass,
       email,
       classname,
@@ -34,6 +36,7 @@ export const signUpTeacher = async (req, res) => {
 
     const createTeacher = await signUpTeachers({
       name,
+      subdomain,
       password: hashPass,
       phonenumber,
     });
@@ -84,7 +87,7 @@ export const validateTeacher = async (req, res) => {
   try {
     const t_id = req.user.t_id;
 
-    const user = await validate(t_id);
+    const user = await validateTeachers(t_id);
 
     res.json({ authenticated: "True", user });
   } catch (e) {

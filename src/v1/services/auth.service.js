@@ -9,19 +9,19 @@ dotenv.config();
 const apiBaseUrl = process.env.API_BASE_URL;
 const port = process.env.PORT;
 
-export async function signUp(name, email, password, classname) {
+export async function signUp(name, email, password, classname, subdomain) {
   const { data, error } = await supabase
     .from("s_auth")
-    .insert(name, email, password, classname)
+    .insert(name, email, password, classname, subdomain)
     .select();
   if (error) throw error;
   return data;
 }
 
-export async function signUpTeachers(name, phonenumber, password) {
+export async function signUpTeachers(name, phonenumber, password, subdomain) {
   const { data, error } = await supabase
     .from("t_auth")
-    .insert(name, phonenumber, password)
+    .insert(name, phonenumber, password, subdomain)
     .select();
   if (error) throw error;
   return data;
