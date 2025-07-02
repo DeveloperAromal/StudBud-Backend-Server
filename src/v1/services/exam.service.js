@@ -28,6 +28,16 @@ export async function getExam(classname, subdomain) {
   return data;
 }
 
+export async function getExamBySubdomain(subdomain) {
+  const { data, error } = await supabase
+    .from("exams")
+    .select("*")
+    .eq("subdomain", subdomain);
+
+  if (error) throw error;
+  return data;
+}
+
 export async function insertStatus(examId, status) {
   const { data: existingData, error: fetchError } = await supabase
     .from("exams")

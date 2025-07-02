@@ -4,6 +4,7 @@ import {
   insertStatus,
   getStatusByClassname,
   updateMark,
+  getExamBySubdomain,
 } from "../services/exam.service.js";
 
 export const createExamPost = async (req, res) => {
@@ -29,6 +30,17 @@ export const getExamByClass = async (req, res) => {
   try {
     const { classname, subdomain } = req.params;
     const examByClass = await getExam(classname, subdomain);
+    res.json(examByClass);
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ error: "Failed to fetch exams." });
+  }
+};
+
+export const getExamBySubDomain = async (req, res) => {
+  try {
+    const { subdomain } = req.params;
+    const examByClass = await getExamBySubdomain(subdomain);
     res.json(examByClass);
   } catch (e) {
     console.log(e);
