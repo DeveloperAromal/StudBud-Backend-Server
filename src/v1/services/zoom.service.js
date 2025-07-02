@@ -2,7 +2,7 @@ import axios from "axios";
 import { supabase } from "../config/SupabaseConfig.js";
 import { getZoomAccessToken } from "../utils/zoomClient.js";
 
-export async function CreateMeeting(meetingData, classname) {
+export async function CreateMeeting(meetingData, classname, subdomain) {
   const access_token = await getZoomAccessToken();
   try {
     const meetRes = await axios.post(
@@ -22,6 +22,7 @@ export async function CreateMeeting(meetingData, classname) {
 
     const recordToInsert = {
       classname,
+      subdomain,
       meetingData: {
         ...meetingData,
       },
@@ -41,11 +42,12 @@ export async function CreateMeeting(meetingData, classname) {
   }
 }
 
-export async function getMeetingByClass(classname) {
+export async function getMeetingByClass(classname, subdomain) {
   const { data, error } = await supabase
     .from("meet")
     .select("*")
-    .eq("classname", classname);
+    .eq("classname", classname)
+    .eq("subdomain", subdomain);
 
   if (error) throw error;
 

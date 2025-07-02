@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.post("/create/meet", createMeetingLink);
 
-router.get("/get/meetdata/:classname", getMeetingData);
+router.get("/get/meetdata/:classname/:subdomain", getMeetingData);
 
 export default router;
