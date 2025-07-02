@@ -1,20 +1,27 @@
 import { supabase } from "../config/SupabaseConfig.js";
 
-export async function postHomework(title, duration, question, classname) {
+export async function postHomework(
+  title,
+  duration,
+  question,
+  classname,
+  subdomain
+) {
   const { data, error } = await supabase
     .from("homework")
-    .insert([{ title, duration, question, classname }])
+    .insert([{ title, duration, question, classname, subdomain }])
     .select();
 
   if (error) throw error;
   return data;
 }
 
-export async function getHomework(classname) {
+export async function getHomework(classname, subdomain) {
   const { data, error } = await supabase
     .from("homework")
     .select("*")
-    .eq("classname", classname);
+    .eq("classname", classname)
+    .eq("subdomain", subdomain);
 
   if (error) throw error;
 

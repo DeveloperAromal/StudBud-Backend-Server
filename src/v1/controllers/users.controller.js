@@ -13,8 +13,8 @@ export const fetchUser = async (req, res) => {
 
 export const fetchUserByClass = async (req, res) => {
   try {
-    const { classname } = req.params;
-    const user = await getUserByClassname(classname);
+    const { classname, subdomain } = req.params;
+    const user = await getUserByClassname(classname, subdomain);
 
     res.json(user);
   } catch (e) {

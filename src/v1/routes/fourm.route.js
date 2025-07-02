@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post("/insert/comment", InsertNewComment);
 router.post("/create/fourm/post", createFourmPost);
-router.get("/get/fourm/post/:classname", getPostByClass);
+router.get("/get/fourm/post/:classname/:subdomain", getPostByClass);
 router.get("/get/disscusiondatabyid/:disid", getDissusionData);
 
 export default router;

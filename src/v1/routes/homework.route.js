@@ -9,7 +9,7 @@ import {
 const router = express.Router();
 
 router.post("/homework/postHomework", homeworkUpload);
-router.get("/get/homework/:classname", fetchHomeworkByClass);
+router.get("/get/homework/:classname/:subdomain", fetchHomeworkByClass);
 router.post("/update/hwstatus", updateHwStatus);
 router.post("/homework/postHomework", homeworkUpload);
 

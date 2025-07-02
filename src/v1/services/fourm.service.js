@@ -1,20 +1,21 @@
 import { supabase } from "../config/SupabaseConfig.js";
 
-export async function createPost(title, description, classname) {
+export async function createPost(title, description, classname, subdomain) {
   const { data, error } = await supabase
     .from("discussion")
-    .insert([{ title, description, classname }])
+    .insert([{ title, description, classname, subdomain }])
     .select();
 
   if (error) throw error;
   return data;
 }
 
-export async function getPost(classname) {
+export async function getPost(classname, subdomain) {
   const { data, error } = await supabase
     .from("discussion")
     .select("*")
-    .eq("classname", classname);
+    .eq("classname", classname)
+    .eq("subdomain", subdomain);
   if (error) throw error;
   return data;
 }
@@ -50,5 +51,3 @@ export async function insertCmt(disid, comment) {
 
   return data;
 }
-
-

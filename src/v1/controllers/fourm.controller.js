@@ -7,8 +7,8 @@ import {
 
 export const createFourmPost = async (req, res) => {
   try {
-    const { title, description, classname } = req.body;
-    const post = await createPost(title, description, classname);
+    const { title, description, classname, subdomain } = req.body;
+    const post = await createPost(title, description, classname, subdomain);
     res.json(post);
   } catch (e) {
     console.log(e);
@@ -17,8 +17,8 @@ export const createFourmPost = async (req, res) => {
 
 export const getPostByClass = async (req, res) => {
   try {
-    const { classname } = req.params;
-    const postByClass = await getPost(classname);
+    const { classname, subdomain } = req.params;
+    const postByClass = await getPost(classname, subdomain);
     res.json(postByClass);
   } catch (e) {
     console.log(e);

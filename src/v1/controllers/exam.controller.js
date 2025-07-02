@@ -8,13 +8,15 @@ import {
 
 export const createExamPost = async (req, res) => {
   try {
-    const { title, question, duration, classname, subject } = req.body;
+    const { title, question, duration, classname, subject, subdomain } =
+      req.body;
     const exam = await createExam(
       title,
       question,
       duration,
       classname,
-      subject
+      subject,
+      subdomain
     );
     res.json(exam);
   } catch (e) {
@@ -25,8 +27,8 @@ export const createExamPost = async (req, res) => {
 
 export const getExamByClass = async (req, res) => {
   try {
-    const { classname } = req.params;
-    const examByClass = await getExam(classname);
+    const { classname, subdomain } = req.params;
+    const examByClass = await getExam(classname, subdomain);
     res.json(examByClass);
   } catch (e) {
     console.log(e);

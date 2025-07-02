@@ -14,6 +14,7 @@ import leaderboardRoute from "./routes/leaderboard.route.js";
 import meetRoute from "./routes/zoom.route.js";
 import absentesRoute from "./routes/attendance.route.js";
 import buddyRoute from "./routes/buddy.route.js";
+import summaryRoute from "./routes/summarizer.route.js";
 
 dotenv.config();
 
@@ -38,5 +39,7 @@ app.use("/api/v1", leaderboardRoute);
 app.use("/api/v1", meetRoute);
 app.use("/api/v1", absentesRoute);
 app.use("/api/v1", buddyRoute);
+app.use("/api/v1", summaryRoute);
+
 
 export default app;

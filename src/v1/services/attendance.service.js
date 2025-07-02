@@ -77,6 +77,7 @@ export async function markStudent(s_id, newDaysByMonth) {
     return null;
   }
 }
+
 export async function getAbsentDaysByStudent(s_id) {
   const { data, error } = await supabase
     .from("absentees")

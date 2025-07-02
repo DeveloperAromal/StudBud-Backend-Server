@@ -8,6 +8,6 @@ import {
 const router = express.Router();
 
 router.post("/create/announcement/post", createAnnouncementPost);
-router.get("/get/announcement/post/:classname", getAnnouncementByClass);
+router.get("/get/announcement/post/:classname/:subdomain", getAnnouncementByClass);
 
 export default router;

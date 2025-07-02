@@ -1,27 +1,28 @@
 import { supabase } from "../config/SupabaseConfig.js";
-import axios from "axios";
 
 export async function createExam(
   title,
   question,
   duration,
   classname,
-  subject
+  subject,
+  subdomain
 ) {
   const { data, error } = await supabase
     .from("exams")
-    .insert([{ title, question, duration, classname, subject }])
+    .insert([{ title, question, duration, classname, subject, subdomain }])
     .select();
 
   if (error) throw error;
   return data;
 }
 
-export async function getExam(classname) {
+export async function getExam(classname, subdomain) {
   const { data, error } = await supabase
     .from("exams")
     .select("*")
-    .eq("classname", classname);
+    .eq("classname", classname)
+    .eq("subdomain", subdomain);
 
   if (error) throw error;
   return data;
@@ -50,7 +51,6 @@ export async function insertStatus(examId, status) {
 }
 
 export async function updateMark(examId, s_id, mark) {
-  // Fetch the existing marks from Supabase
   const { data: existing, error: fetchError } = await supabase
     .from("exams")
     .select("marks")
@@ -59,17 +59,13 @@ export async function updateMark(examId, s_id, mark) {
 
   if (fetchError) throw fetchError;
 
-  // Ensure marks is treated as an array
   const currentMarks = Array.isArray(existing?.marks) ? existing.marks : [];
 
-  // Check if the student already has a mark
   const index = currentMarks.findIndex((entry) => entry.s_id === s_id);
 
   if (index !== -1) {
-    // Update existing entry
     currentMarks[index].mark = mark;
   } else {
-    // Add new entry
     currentMarks.push({
       examid: examId,
       s_id,
