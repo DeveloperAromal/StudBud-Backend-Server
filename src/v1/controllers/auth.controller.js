@@ -30,7 +30,7 @@ export const signUpUser = async (req, res) => {
 
 export const signUpTeacher = async (req, res) => {
   try {
-    const { name, password, phonenumber } = req.body;
+    const { name, password, phonenumber, subdomain } = req.body;
 
     const hashPass = await bcrypt.hash(password, 10);
 
